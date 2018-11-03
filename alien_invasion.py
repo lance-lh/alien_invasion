@@ -53,7 +53,7 @@ def run_game():
         #         bullets.remove(bullet)
         # # print(len(bullets))          # to check the left bullets in Group
 
-        gf.update_aliens(ai_settings, aliens)
+        gf.update_aliens(ai_settings, ship, aliens)
 
         gf.update_screen(ai_settings,screen,ship,aliens,bullets)
         # # recreate screen once loop
