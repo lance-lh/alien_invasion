@@ -46,18 +46,19 @@ def run_game():
         #     if event.type == pygame.QUIT:  # to capture keyboard or mouse state, use method pygame.event.get()
         #         sys.exit()                 # if the state is active, then it indicates the while loop is true.
         #                                    # use sys module to quit the game
-        ship.update()
+        if stats.game_active:
+            ship.update()
 
-        gf.update_bullets(ai_settings,screen,ship,aliens,bullets)
-        # bullets.update()
-        #
-        # # delete vanished bulletq
-        # for bullet in bullets.copy():  # not delete bullet in Group but its copy group
-        #     if bullet.rect.bottom <= 0:
-        #         bullets.remove(bullet)
-        # # print(len(bullets))          # to check the left bullets in Group
+            gf.update_bullets(ai_settings,screen,ship,aliens,bullets)
+            # bullets.update()
+            #
+            # # delete vanished bulletq
+            # for bullet in bullets.copy():  # not delete bullet in Group but its copy group
+            #     if bullet.rect.bottom <= 0:
+            #         bullets.remove(bullet)
+            # # print(len(bullets))          # to check the left bullets in Group
 
-        gf.update_aliens(ai_settings, stats, screen,ship, aliens, bullets)
+            gf.update_aliens(ai_settings, stats, screen,ship, aliens, bullets)
 
         gf.update_screen(ai_settings,screen,ship,aliens,bullets)
         # # recreate screen once loop
