@@ -57,7 +57,7 @@ def check_events(ai_settings,screen,ship,bullets):
             #     ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, aliens, bullets):
+def update_screen(ai_settings, screen, stats,ship, aliens, bullets,play_button):
     '''update image in screen and switch to new screen'''
     # recreate screen once loop
     screen.fill(ai_settings.bg_color)
@@ -69,6 +69,10 @@ def update_screen(ai_settings, screen, ship, aliens, bullets):
     ship.blitme()
     # alien.blitme()
     aliens.draw(screen)
+
+    # if game is not active, then draw play button
+    if not stats.game_active:
+        play_button.draw_button()
 
     # let the newest created screen visible
     pygame.display.flip()  # update the screen state
