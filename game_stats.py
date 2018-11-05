@@ -8,6 +8,8 @@ class GameStats():
         # when game starts, flag inactive
         self.game_active = False
 
+
     def reset_stats(self):
         '''initialize all changeable statistical information'''
         self.ships_left = self.ai_settings.ship_limit
+        self.score = 0
