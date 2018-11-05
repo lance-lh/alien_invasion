@@ -46,7 +46,7 @@ def run_game():
 
     while True:
 
-        gf.check_events(ai_settings,screen,stats,play_button,ship,aliens,bullets)
+        gf.check_events(ai_settings,screen,stats,sb,play_button,ship,aliens,bullets)
         # # monitor the keyboard and mouse
         # for event in pygame.event.get():   # event loop
         #     if event.type == pygame.QUIT:  # to capture keyboard or mouse state, use method pygame.event.get()
