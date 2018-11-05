@@ -20,5 +20,6 @@ class Settings():
 
         # alien setting
         self.alien_speed_factor = 1
+        self.ship_limit = 3
         self.fleet_drop_speed = 10
         self.fleet_direction = 1    # fleet_direction = 1 indicates the right move, -1 indicates left move
