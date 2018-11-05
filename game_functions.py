@@ -102,7 +102,7 @@ def update_screen(ai_settings, screen, stats,sb,ship, aliens, bullets,play_butto
     # let the newest created screen visible
     pygame.display.flip()  # update the screen state
 
-def update_bullets(ai_settings,screen,ship,aliens,bullets):
+def update_bullets(ai_settings,screen,stats,sb,ship,aliens,bullets):
     '''update the bullet location and delete vanished bullet'''
     # update bullet location
     bullets.update()
@@ -116,12 +116,17 @@ def update_bullets(ai_settings,screen,ship,aliens,bullets):
             bullets.remove(bullet)
             # print(len(bullets))          # to check the left bullets in Group
 
-    check_bullet_alien_collisons(ai_settings, screen, ship,aliens,bullets)
+    check_bullet_alien_collisons(ai_settings,screen,stats,sb,ship,aliens,bullets)
 
-def check_bullet_alien_collisons(ai_settings,screen,ship,aliens,bullets):
+def check_bullet_alien_collisons(ai_settings,screen,stats,sb,ship,aliens,bullets):
     '''respond to collision between aliens and bullets'''
     # delete crashed bullets and aliens
     collissions = pygame.sprite.groupcollide(bullets,aliens,True, True)  # return a dict , key is a bullet and value is an alien
+
+    if collissions:
+        for aliens in collissions.values():
+            stats.score += ai_settings.alien_points * len(aliens)
+            sb.prep_score()
 
     if len(aliens) == 0:
         # delete existing bullets and create new aliens
