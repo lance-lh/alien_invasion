@@ -74,6 +74,7 @@ def check_play_buttons(ai_settings,screen,stats,sb,play_button,ship,aliens,bulle
         sb.prep_score()
         sb.prep_high_score()
         sb.prep_level()
+        sb.prep_ships()
 
         # empty aliens and bullets list
         aliens.empty()
@@ -206,12 +207,14 @@ def change_fleet_direction(ai_settings, aliens):
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
 
-def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+def ship_hit(ai_settings, screen,stats, sb,ship, aliens, bullets):
     '''collision response'''
     if stats.ships_left > 0:
         # ships_left - 1
         stats.ships_left -= 1
 
+        # update scoreboard
+        sb.prep_ships()
 
         # empty alien list and bullet list
         aliens.empty()
@@ -227,16 +230,16 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         stats.game_active = False
         pygame.mouse.set_visible(True)
 
-def check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets):
+def check_aliens_bottom(ai_settings, screen,stats, sb,ship, aliens, bullets):
     '''check whether aliens arrive at the bottom of screen or not'''
     screen_rect = screen.get_rect()
     for alien in aliens.sprites():
         if alien.rect.bottom >= screen_rect.bottom:
             '''deal with this situation just like ship collision'''
-            ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
+            ship_hit(ai_settings, screen,stats, sb,ship, aliens, bullets)
             break
 
-def update_aliens(ai_settings, stats, screen,ship, aliens, bullets):
+def update_aliens(ai_settings, screen,stats, sb,ship, aliens, bullets):
     '''check alien appears at the screen edge or not, and update aliens location'''
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
@@ -244,8 +247,8 @@ def update_aliens(ai_settings, stats, screen,ship, aliens, bullets):
     '''check collissions　between aliens and ship'''
     if pygame.sprite.spritecollideany(ship,aliens):
         # print("Ship hit!!!")
-        ship_hit(ai_settings,stats,screen,ship,aliens,bullets)
-        check_aliens_bottom(ai_settings,stats,screen,ship,aliens,bullets)
+        ship_hit(ai_settings, screen,stats, sb,ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, screen,stats, sb,ship, aliens, bullets)
 
 def check_high_score(stats,sb):
     '''check the generation of high score'''
